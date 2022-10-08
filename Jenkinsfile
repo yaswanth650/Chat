@@ -21,12 +21,6 @@ pipeline {
       }
     }
     
-    stage ('Build') {
-      steps {
-      sh 'mvn clean package'
-       }
-    }
-    
     stage ('Source Composition Analysis') {
       steps {
          sh 'rm owasp* || true'
@@ -45,6 +39,12 @@ pipeline {
           sh 'cat target/sonar/report-task.txt'
         }
       }
+    }
+    
+      stage ('Build') {
+      steps {
+      sh 'mvn clean package'
+       }
     }
     
     stage ('Deploy-To-Tomcat') {
