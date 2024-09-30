@@ -59,7 +59,7 @@ pipeline {
     
     stage ('DAST') {
       steps {
-        sshagent(['zap']) {
+        sshagent(['owasp-zap']) {
          sh 'ssh -o  StrictHostKeyChecking=no ubuntu@13.234.120.209 "docker run -t ghcr.io/zaproxy/zaproxy:stable zap-baseline.py -t http://13.201.127.190:8080/chat/" || true'
         }
       }
