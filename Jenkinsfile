@@ -35,7 +35,7 @@ pipeline {
     stage ('SAST') {
       steps {
         withSonarQubeEnv('sonarqube') {
-          sh 'mvn -U package'
+          sh 'mvn -N package'
           sh 'mvn sonar:sonar'
           sh 'cat target/sonar/report-task.txt'
         }
@@ -44,7 +44,7 @@ pipeline {
     
       stage ('Build') {
       steps {
-      sh 'mvn -U clean package'
+      sh 'mvn -N clean package'
        }
     }
     
