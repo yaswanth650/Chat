@@ -80,6 +80,17 @@
 	    <scope>provided</scope>
 	  </dependency>
 	  <dependency>
+<dependency>
+    <groupId>commons-logging</groupId>
+    <artifactId>commons-logging-api</artifactId>
+    <version>1.1</version>
+    <exclusions>
+        <exclusion>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+        </exclusion>
+    </exclusions>
+</dependency>
 	    <groupId>javax.websocket</groupId>
 	    <artifactId>javax.websocket-api</artifactId>
 	    <version>1.0</version>
