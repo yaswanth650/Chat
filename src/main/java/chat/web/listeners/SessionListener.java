@@ -1,6 +1,6 @@
 package chat.web.listeners;
 
-import jakarta.servlet.annotation.WebListener;
+import javax.servlet.annotation.WebListener;
 import jakarta.servlet.http.HttpSessionEvent;
 import jakarta.servlet.http.HttpSessionListener;
 
