@@ -12,10 +12,10 @@ import java.util.Base64;
 import java.util.Base64.Decoder;
 import java.util.Base64.Encoder;
 
-import javax.crypto.BadPaddingException;
-import javax.crypto.Cipher;
-import javax.crypto.IllegalBlockSizeException;
-import javax.crypto.NoSuchPaddingException;
+import jakarta.crypto.BadPaddingException;
+import jakarta.crypto.Cipher;
+import jakarta.crypto.IllegalBlockSizeException;
+import jakarta.crypto.NoSuchPaddingException;
 import jakarta.servlet.http.HttpSession;
 
 /**
