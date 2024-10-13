@@ -51,16 +51,15 @@ pipeline {
     stage ('Deploy-To-Tomcat') {
             steps {
            sshagent(['tomcat']) {
-                sh 'scp -o StrictHostKeyChecking=no target/*.war ubuntu@15.206.117.224:/prod/apache-tomcat-10.1.30/webapps/Chat.war'
+                sh 'scp -o StrictHostKeyChecking=no target/*.war ubuntu@13.126.249.50:/prod/apache-tomcat-10.1.30/webapps/Chat.war'
               }      
            }       
       }
     
-    
     stage ('DAST') {
       steps {
         sshagent(['owasp-zap']) {
-         sh 'ssh -o  StrictHostKeyChecking=no ubuntu@15.206.84.46 "docker run -t ghcr.io/zaproxy/zaproxy:stable zap-baseline.py -t http://15.206.117.224:8080/chat/" || true'
+         sh 'ssh -o  StrictHostKeyChecking=no ubuntu@35.154.3.248 "docker run -t ghcr.io/zaproxy/zaproxy:stable zap-baseline.py -t http://13.126.249.50:8443/Chat/" || true'
         }
       }
     }
