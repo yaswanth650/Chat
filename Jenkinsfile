@@ -12,7 +12,6 @@ pipeline {
             ''' 
       }
     }
-    
     stage ('Check-Git-Secrets') {
       steps {
         sh 'rm trufflehog || true'
@@ -20,19 +19,17 @@ pipeline {
         sh 'cat trufflehog'
       }
     }
-    
     stage ('Source Composition Analysis') {
       steps {
          sh 'rm owasp* || true'
-         sh 'wget "https://raw.githubusercontent.com/cehkunal/webapp/master/owasp-dependency-check.sh" '
+         sh 'wget "https://raw.githubusercontent.com/yaswanth650/webapp/refs/heads/master/owasp-dependency-check.sh"'
          sh 'chmod +x owasp-dependency-check.sh'
          sh 'bash owasp-dependency-check.sh'
          sh 'cat /var/lib/jenkins/OWASP-Dependency-Check/reports/dependency-check-report.xml'
         
       }
     }
-    
-    stage ('SAST') {
+     stage ('SAST') {
       steps {
         withSonarQubeEnv('sonarqube') {
           sh 'mvn package'
@@ -41,17 +38,15 @@ pipeline {
         }
       }
     }
-    
-      stage ('Build') {
+     stage ('Build') {
       steps {
       sh 'mvn clean package'
        }
     }
-    
     stage ('Deploy-To-Tomcat') {
             steps {
            sshagent(['tomcat']) {
-                sh 'scp -o StrictHostKeyChecking=no target/*.war ubuntu@13.201.94.137:/prod/apache-tomcat-10.1.30/webapps/Chat.war'
+                sh 'scp -o StrictHostKeyChecking=no target/*.war ubuntu@13.234.240.211:/prod/apache-tomcat-10.1.30/webapps/Chat.war'
               }      
            }       
       }
@@ -59,7 +54,7 @@ pipeline {
     stage ('DAST') {
       steps {
         sshagent(['owasp-zap']) {
-         sh 'ssh -o  StrictHostKeyChecking=no ubuntu@13.201.226.249 "docker run -t ghcr.io/zaproxy/zaproxy:stable zap-baseline.py -t https://13.201.94.137:8443/Chat/" || true'
+         sh 'ssh -o  StrictHostKeyChecking=no ubuntu@52.66.155.0 "docker run -t ghcr.io/zaproxy/zaproxy:stable zap-baseline.py -t https://13.234.240.211:8443/Chat/" || true'
         }
       }
     }
